@@ -51,6 +51,10 @@ class API(object):
     def find_parties(self, event_ids):
         return party.find(event_ids)
 
+    @validate
+    def remove(self, party_id, track_uri):
+	    party.Party(party_id).remove(track_uri)
+
 
 class SpartifyService(API, util.JsonService):
     pass

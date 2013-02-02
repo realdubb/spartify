@@ -65,3 +65,11 @@ class Queue(object):
                 break
         self._queue.insert(pos, (track, votes,))
         self._save()
+
+    def remove(self, track_uri):
+	    pos = index_of(self._queue, track_uri, lambda x: x[0]['uri'])
+	    if pos is None:
+		    pass #The entry was not found. Ignore
+	    else:
+		    self._queue.pop(pos) #pop the element and trash it
+		    self._save()

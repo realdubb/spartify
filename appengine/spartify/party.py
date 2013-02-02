@@ -36,6 +36,9 @@ class Party(object):
         self._queue.vote(track_uri)
         stores.votes.timeout_store(user_vote_key, 1, config.USER_REPEAT_VOTE_WAIT)
 
+    def remove(self, track_uri):
+	    self._queue.remove(track_uri)
+
 def exists(party_id):
     return True if party_id in stores.parties else False
 
