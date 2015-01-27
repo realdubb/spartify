@@ -33,9 +33,8 @@ class Party(object):
 
     def vote(self, user, track_uri):
         user_vote_key = '%s:%s' % (user, track_uri,)
-        if user_vote_key not in stores.votes:
-            self._queue.vote(track_uri)
-            stores.votes.timeout_store(user_vote_key, 1, config.USER_REPEAT_VOTE_WAIT)
+        self._queue.vote(track_uri)
+        stores.votes.timeout_store(user_vote_key, 1, config.USER_REPEAT_VOTE_WAIT)
 
 def exists(party_id):
     return True if party_id in stores.parties else False
