@@ -1,5 +1,4 @@
-application: spartify
-version: master
+application: metafeather-spartify
 runtime: python27
 api_version: 1
 threadsafe: true
