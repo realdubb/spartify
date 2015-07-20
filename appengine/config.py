@@ -8,4 +8,5 @@ ECHONEST_BASE_URL = 'http://developer.echonest.com/api/v4/'
 ECHONEST_MAX_TRACKS_PER_ARTIST = 1
 ECHONEST_MAX_SIMILAR_ARTIST = 3
 
-SPOTIFY_BASE_URL = 'http://ws.spotify.com/'
+#SPOTIFY_BASE_URL = 'http://ws.spotify.com/'
+SPOTIFY_BASE_URL = 'https://api.spotify.com/'

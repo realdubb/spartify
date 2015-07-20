@@ -382,16 +382,17 @@ var spartify = function () {
 
     function handleResults(tracks) {
       var songs = [];
-      for (var i = 0; i < tracks.length; i++) {
+      for (var i = 0; i < tracks.items.length; i++) {
         if (i >= 5) break;
 
-        var song = tracks[i];
+        var song = tracks.items[i];
         songs.push({
           album: song.album.name,
+          image: song.album.images[2].url,
           artist: song.artists[0].name,
-          length: song.length,
+          length: (song.duration_ms / 1000),
           title: song.name,
-          uri: song.href
+          uri: song.uri
         });
       }
       fillSongList(results, songs);
@@ -399,8 +400,13 @@ var spartify = function () {
 
     function search() {
       counter++;
-      $.getJSON('http://ws.spotify.com/search/1/track.json',
-        {q: query},
+      //$.getJSON('http://ws.spotify.com/search/1/track.json',
+      $.getJSON('https://api.spotify.com/v1/search',
+        {
+          q: query,
+          type: 'track',
+          market: 'GB'
+        },
         (function (i) {
           return function (data) {
             if (counter > i) {

@@ -7,36 +7,45 @@ import config
 
 
 class Track:
+    sid = None
     uri = None
     title = ''
     artist = ''
     album = ''
     length = ''
+    image = ''
     _metadata_set = False
 
     def __init__(self, uri):
         self.uri = uri
 
-    def set_metadata(self, title, artist, album, length):
+        # derive the Spotify ID from the uri for now
+        sid = uri.split(':')[2]
+        self.sid = sid
+
+    def set_metadata(self, title, artist, album, length, image):
         self.title = title
         self.artist = artist
         self.album = album
         self.length = length
+        self.image = image
         self._metadata_set = True
 
     def lookup(self):
         if not self._metadata_set:
             try:
-                url = '%slookup/1/.json?uri=%s' % (config.SPOTIFY_BASE_URL,
-                        self.uri)
+                #url = '%slookup/1/.json?uri=%s' % (config.SPOTIFY_BASE_URL,
+                #        self.uri)
+                url = '%sv1/tracks/%s' % (config.SPOTIFY_BASE_URL,
+                        self.sid)
                 res = fetch(url)
                 res = json.loads(res.content)
-                res_track = res['track']
                 self.set_metadata(
-                    res_track['name'],
-                    res_track['artists'][0]['name'],
-                    res_track['album']['name'],
-                    res_track['length'])
+                    res['name'],
+                    res['artists'][0]['name'],
+                    res['album']['name'],
+                    (res['duration_ms'] / 1000),
+                    res['album']['images'][2]['url'])
             except:
                 pass
 
@@ -47,6 +56,7 @@ class Track:
                 'artist': self.artist,
                 'album': self.album,
                 'length': self.length,
+                'image': self.image,
                 }
 
     def __hash__(self):
