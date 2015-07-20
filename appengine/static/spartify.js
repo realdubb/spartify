@@ -159,6 +159,7 @@ var spartify = function () {
           .data('song', song)
           .attr('data-uri', song.uri)
           .append(
+            $('<img height="40" style="float:left;vertical-align:middle;padding-right:5px" src="'+song.image+'" />'),
             $('<span class="title">').text(song.title),
             $('<span class="artist">').text(song.artist),
             $('<span class="vote">+1</span>'))
