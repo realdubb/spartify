@@ -200,6 +200,18 @@ section {
 	top: 0;
 }
 
+#queue.song-list .vote {
+  right: 25px;
+}
+#queue.song-list .delete {
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 48px;
+	position: absolute;
+	right: 9px;
+	top: 0;
+}
+
 .song-list li {
 	background: #fff;
 	border-color: #ccc;
@@ -234,6 +246,10 @@ section {
 
 .song-list li:hover .vote {
 	color: #0c0;
+}
+
+.song-list li:hover .delete {
+	color: #f00;
 }
 
 .song-list span {

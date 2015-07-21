@@ -58,6 +58,11 @@ var spartify = function () {
     function (data, success, error) {
       success();
     });
+  Api.prototype.removeTrack = Api.createHandler('remove',
+    ['party_id', 'track_uri'],
+    function (data, success, error) {
+      success();
+    });
 
 
   return {
@@ -141,6 +146,7 @@ var spartify = function () {
   }
 
   function fillSongList(list, songs) {
+    console.log('fillSongList', this, arguments);
     list.css('height', songs.length * 50);
 
     var lis = list.children('li'), traversed = [];
@@ -162,7 +168,8 @@ var spartify = function () {
             $('<img height="40" style="float:left;vertical-align:middle;padding-right:5px" src="'+song.image+'" />'),
             $('<span class="title">').text(song.title),
             $('<span class="artist">').text(song.artist),
-            $('<span class="vote">+1</span>'))
+            $('<span class="vote">+1</span>'),
+            $('<span class="delete">x</span>'))
           .appendTo(list);
       } else {
         traversed.push(li[0]);
@@ -257,6 +264,14 @@ var spartify = function () {
     fillSongList(container, queue);
     // TODO(blixt): Refactor away this duplicate code.
     $('#party-room h2').toggle(queue.length > 0);
+  }
+
+  function remove(song) {
+    var code = getPartyCode();
+    spartify.api.removeTrack(code, song.uri, null, null);
+    queue = jQuery.grep(queue, function(value) {
+      return value != song;
+    });
   }
 
   var stopGetSongs, deferGetSongs;
@@ -374,6 +389,14 @@ var spartify = function () {
     vote(li.data('song'));
   });
 
+  $('.song-list').on('click', 'span.delete', function (event) {
+    event.stopPropagation();
+    var li = $(this).parent();
+    remove(li.data('song'));
+    li.fadeOut(200);
+    li.remove();
+  });
+
   (function () {
     var query = '',
       counter = 0,
@@ -382,6 +405,7 @@ var spartify = function () {
       timeout;
 
     function handleResults(tracks) {
+      console.log('handleResults', this, arguments);
       var songs = [];
       for (var i = 0; i < tracks.items.length; i++) {
         if (i >= 5) break;
