@@ -168,9 +168,14 @@ var spartify = function () {
             $('<img height="40" style="float:left;vertical-align:middle;padding-right:5px" src="'+song.image+'" />'),
             $('<span class="title">').text(song.title),
             $('<span class="artist">').text(song.artist),
-            $('<span class="vote">+1</span>'),
-            $('<span class="delete">x</span>'))
-          .appendTo(list);
+            $('<span class="vote">+1</span>'))
+
+        if (isMaster()) {
+          li.addClass("master")
+            .append($('<span class="delete">X</span>'))
+        }
+
+        li.appendTo(list);
       } else {
         traversed.push(li[0]);
       }

@@ -200,8 +200,8 @@ section {
 	top: 0;
 }
 
-#queue.song-list .vote {
-  right: 25px;
+#queue.song-list .master .vote {
+  right: 35px;
 }
 #queue.song-list .delete {
 	font-size: 32px;
