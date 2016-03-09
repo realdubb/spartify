@@ -1,12 +1,10 @@
 from spartify import party, util
 
-
 def validate(f):
     def wrap(self, party_id, *args, **kwargs):
         if party.exists(party_id):
             return f(self, party_id.upper(), *args, **kwargs)
     return wrap
-
 
 class API(object):
     def start(self, event_id=0):

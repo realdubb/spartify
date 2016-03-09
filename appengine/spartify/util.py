@@ -8,7 +8,6 @@ import re
 
 import webapp2
 
-
 def create_id(size=12, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 

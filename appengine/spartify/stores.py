@@ -84,12 +84,12 @@ class DataStore:
         key = self._parse_key(key)
         value = json.dumps(value)
         timeout = config.CACHE_DEFAULT_TIMEOUT if timeout < 0 else timeout
-        memcache.set(key, value, timeout) 
+        memcache.set(key, value, timeout)
         if self._persistent:
             StoreNode.set(key, value, self._collection)
 
 
 votes = DataStore('vote', False)
-parties = DataStore('party') 
-events = DataStore('events') 
-queues = DataStore('queue') 
+parties = DataStore('party')
+events = DataStore('events')
+queues = DataStore('queue')

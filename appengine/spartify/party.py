@@ -5,7 +5,6 @@ from spartify.util import create_id
 from spartify.recommendations import find_similar_tracks
 from spartify.playback import Queue
 
-
 class Party(object):
     def __init__(self, id):
         self.id = id
